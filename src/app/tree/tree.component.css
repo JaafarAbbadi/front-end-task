@@ -11,3 +11,11 @@
     justify-content: center;
     align-items: center;
 }
+.flex-align-horizental {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: stretch;
+}
