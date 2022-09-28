@@ -1,5 +1,3 @@
-
-
 <div class="container flex-center">
     <mat-form-field appearance="standard">
         <mat-label>Search</mat-label>
@@ -8,16 +6,28 @@
     <ng-container *ngTemplateOutlet="tree; context:{node:  root}"></ng-container>
     <ng-template #tree let-node="node">
         <mat-accordion>
-            <div><mat-checkbox *ngIf="node && !(node.children?.length)" (change)="toggleCheckBox($event, node)">{{node.label}}</mat-checkbox></div>
+            <div>
+                <mat-checkbox *ngIf="node && !(node.children?.length)" (change)="toggleCheckBox($event, node)">
+                    {{node.label}}
+                </mat-checkbox>
+            </div>
             <mat-expansion-panel *ngIf="node && node.children?.length" [disabled]="true" #mep="matExpansionPanel">
+                
                 <mat-expansion-panel-header>
                     <mat-panel-title class="flex-align-horizental">
                         <mat-checkbox (change)="toggleCheckBox($event, node)">{{node.label}}</mat-checkbox>
-                        <button mat-raised-button color="primary" (click)="mep.expanded = !mep.expanded"><!-- Get Icons List from - https://material.io/resources/icons/?style=baseline -->
-                        <mat-icon aria-hidden="false" aria-label="Example home icon">{{mep.expanded?'expand_less':'expand_more' }}</mat-icon> </button>
+                        <button mat-raised-button color="primary" (click)="mep.expanded = !mep.expanded">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">
+                                {{mep.expanded?'expand_less':'expand_more' }}
+                            </mat-icon>
+                        </button>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <ng-container *ngFor="let child of node.children"><ng-container *ngTemplateOutlet="tree;context:{node:child}"></ng-container></ng-container>
+                
+                <ng-container *ngFor="let child of node.children">
+                    <ng-container *ngTemplateOutlet="tree;context:{node:child}"></ng-container>
+                </ng-container>
+
             </mat-expansion-panel>
         </mat-accordion>
     </ng-template>
