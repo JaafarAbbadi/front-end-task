@@ -1,21 +1,21 @@
+
+
 <div class="container flex-center">
     <mat-form-field appearance="standard">
         <mat-label>Search</mat-label>
-        <input matInput (keyup)="onSearchChange($event)" placeholder="Placeholder" />
+        <input matInput (keyup)="onSearchChange($event)" placeholder="Placeholder">
     </mat-form-field>
-    <ng-container *ngTemplateOutlet="tree; context: { node: root }"></ng-container>
+    <ng-container *ngTemplateOutlet="tree; context:{node:  root}"></ng-container>
     <ng-template #tree let-node="node">
-        <mat-accordion [hidden]="node?.hidden">
-            <mat-checkbox *ngIf="node && !node.children?.length" (change)="toggleCheckBox($event, node)" [checked]="node.checked" [indeterminate]="node.indeterminate">{{ node.label }}</mat-checkbox>
+        <mat-accordion>
+            <mat-checkbox *ngIf="node && !(node.children?.length)" (change)="toggleCheckBox($event, node)">{{node.label}}</mat-checkbox>
             <mat-expansion-panel *ngIf="node && node.children?.length">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        <mat-checkbox (change)="toggleCheckBox($event, node)" (click)="$event.stopPropagation()" [checked]="node.checked" [indeterminate]="node.indeterminate">{{ node.label }}</mat-checkbox>
+                        <mat-checkbox (change)="toggleCheckBox($event, node)">{{node.label}}</mat-checkbox>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <ng-container *ngFor="let child of node.children">
-                    <ng-container *ngTemplateOutlet="tree; context: { node: child }"></ng-container>
-                </ng-container>
+                <ng-container *ngFor="let child of node.children"><ng-container *ngTemplateOutlet="tree;context:{node:child}"></ng-container></ng-container>
             </mat-expansion-panel>
         </mat-accordion>
     </ng-template>
