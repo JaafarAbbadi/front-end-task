@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 import { Lookup } from '../types/Lookup.type';
 
 
@@ -8,24 +7,15 @@ import { Lookup } from '../types/Lookup.type';
   templateUrl: './tree.component.html',
   styleUrls: ['./tree.component.css']
 })
-export class TreeComponent implements OnInit {
+export class TreeComponent{
   @Input()  root: Lookup = {label: 'root', value: 'root', children: []};
   @Output() onSearch: EventEmitter<string> = new EventEmitter();
   @Output() onSelectNode: EventEmitter<Lookup> = new EventEmitter();
   @Output() onRemoveNode: EventEmitter<Lookup> = new EventEmitter();
-  constructor() {}
-  ngOnInit() {}
   onSearchChange(ev: any){
     this.onSearch.emit(ev.target.value);
   }
-  onSelection(node: Lookup){
-    this.onSelectNode.emit(node);
+  toggleCheckBox(ev: any, {label, value}: Lookup){
+    (ev.checked)? this.onSelectNode.emit({label,value}) : this.onRemoveNode.emit({label,value});
   }
-  onRemove(node: Lookup){
-    this.onRemoveNode.emit(node);
-  }
-  toggleCheckBox(ev: any, node: Lookup){
-    (ev.checked)? this.onSelectNode.emit(node) : this.onRemoveNode.emit(node);
-  }
-  
 }
